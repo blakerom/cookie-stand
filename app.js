@@ -1,8 +1,10 @@
 'use strict';
 //===================Global Variables===============//
-var hoursOfOperation = ['6am','7am','8am','9am','10am','11am','12am','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm']
+var hoursOfOperation = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm']
 
 //================Functions===========================//
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 function getRandomCustomerCount(min, max)
 {
   min = Math.ceil(min);
@@ -20,23 +22,22 @@ function getCookieSum(cookies)
   }
   return sum;
 }
-// cookieShopSeattle.renderToPage();
 
 //==================Objects=========================//
 var cookieShopSeattle = {
   name : 'Seattle',
-  minimumHourlyCustomers : 23,
-  maximumHourlyCustomers : 65,
+  minNumCustomers : 23,
+  maxNumCustomers : 65,
   averageCookiesSold : 6.3,
-  cookiesSoldSeattle : [],
+  cookiesSold : [],
 
   getHourlyCookiesSold : function() {
     for (var i = 0; i < hoursOfOperation.length; i++)
     {
-      var randomNumbers = getRandomCustomerCount(this.minimumHourlyCustomers, this.maximumHourlyCustomers);
+      var randomNumbers = getRandomCustomerCount(this.minNumCustomers, this.maxNumCustomers);
       var totalHourlySales = Math.round(randomNumbers * this.averageCookiesSold);
       console.log('total :', totalHourlySales);
-      this.cookiesSoldSeattle.push(totalHourlySales);
+      this.cookiesSold.push(totalHourlySales);
     }
   },
   //call function to calculate cookies sold
@@ -45,6 +46,8 @@ var cookieShopSeattle = {
 
   renderCityName : function()
   {
+    // var nameP = document.getElementById(this.parragraphId);
+    // nameP.textContent = this.name;
     var parentCityName = document.getElementById('city-name-1');
     var displayCity = document.createElement('h2');
     displayCity.textContent = this.name;
@@ -58,14 +61,14 @@ var cookieShopSeattle = {
     for (var j = 0; j < hoursOfOperation.length; j++)
     {
     var listItem = document.createElement('li');
-    listItem.textContent = hoursOfOperation[j] + ': ' + this.cookiesSoldSeattle[j] + ' cookies.';
+    listItem.textContent = hoursOfOperation[j] + ': ' + this.cookiesSold[j] + ' cookies.';
     parentUnorderedList.appendChild(listItem);
     }
   },
 
   dailyTotalSales : function()
   {
-    var totalCookies = getCookieSum(this.cookiesSoldSeattle);
+    var totalCookies = getCookieSum(this.cookiesSold);
     var totalList = document.getElementById('sales-numbers-1');
     var cookieListTotal = document.createElement('li');
     cookieListTotal.textContent = ('Total Cookies Sold: ' + totalCookies);
@@ -74,23 +77,23 @@ var cookieShopSeattle = {
 };
 
 var cookieShopTokyo = {
-  minimumHourlyCustomers : 3,
-  maximumHourlyCustomers : 24,
+  minNumCustomers : 3,
+  maxNumCustomers : 24,
   averageCookiesSold : 1.2
 };
 var cookieShopDubai = {
-  minimumHourlyCustomers : 11,
-  maximumHourlyCustomers : 38,
+  minNumCustomers : 11,
+  maxNumCustomers : 38,
   averageCookiesSold : 3.7
 };
 var cookieShopParis = {
-  minimumHourlyCustomers : 20,
-  maximumHourlyCustomers : 38,
+  minNumCustomers : 20,
+  maxNumCustomers : 38,
   averageCookiesSold : 2.3
 };
 var cookieShopLima = {
-  minimumHourlyCustomers : 2,
-  maximumHourlyCustomers : 16,
+  minNumCustomers : 2,
+  maxNumCustomers : 16,
   averageCookiesSold : 4.6
 };
 

@@ -6,10 +6,13 @@ body {
   background-color: #D0C8C1;
 }
 div {
-  background-color: #C6915DCC;
+  background-color: #C6915D;
 }
 div h2 {
   color: #BC543B;
   font-weight: 900;
   font-size: 5em;
+}
+ul {
+  color: #36342C;
 }
