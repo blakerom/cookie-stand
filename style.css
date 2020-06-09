@@ -1,0 +1,15 @@
+/* Old Rose #BC543B, PERU #C6915D, SIENNA #A46846, BLACK #36342C, SILVER #D0C8C1 */
+html {
+  box-sizing: border-box;
+}
+body {
+  background-color: #D0C8C1;
+}
+div {
+  background-color: #C6915DCC;
+}
+div h2 {
+  color: #BC543B;
+  font-weight: 900;
+  font-size: 5em;
+}

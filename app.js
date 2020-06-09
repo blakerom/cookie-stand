@@ -46,7 +46,7 @@ var cookieShopSeattle = {
   renderCityName : function()
   {
     var parentCityName = document.getElementById('city-name-1');
-    var displayCity = document.createElement('h3');
+    var displayCity = document.createElement('h2');
     displayCity.textContent = this.name;
     parentCityName.appendChild(displayCity);
   },
@@ -95,7 +95,7 @@ var cookieShopLima = {
 };
 
 //================Invokes===========================//
-cookieShopSeattle.getHourlyCookiesSold();
 cookieShopSeattle.renderCityName();
+cookieShopSeattle.getHourlyCookiesSold();
 cookieShopSeattle.renderToPage();
 cookieShopSeattle.dailyTotalSales();
