@@ -5,6 +5,16 @@ html {
 body {
   background-color: #D0C8C1;
 }
+table {
+  border: 3px solid #36342C;
+  border-collapse: collapse;
+}
+table tr td{
+  border: 3px solid #36342C;
+  border-collapse: collapse;
+  padding: 6px 10px;
+  margin: 4px 10px;
+}
 div {
   background-color: #C6915D;
 }
