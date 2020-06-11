@@ -133,13 +133,13 @@ function totalCookiesPerHour() {
     for( var j = 0; j < allStoreArray.length; j++) {
       totalCookies += allStoreArray[j].cookiesSold[i];
     }
-    var tdElement = document.createElement('td');
-    tdElement.textContent = totalCookies;
-    footerRow.appendChild(tdElement);
+    var footerCell = document.createElement('td');
+    footerCell.textContent = totalCookies;
+    footerRow.appendChild(footerCell);
   }
-  tdElement = document.createElement('td');
-  tdElement.textContent = totalCookies;
-  footerRow.appendChild(tdElement);
+  footerCell = document.createElement('td');
+  footerCell.textContent = totalCookies;
+  footerRow.appendChild(footerCell);
   table.appendChild(footerRow);
 }
 
