@@ -25,7 +25,7 @@ function Store(name, minNumCustomers, maxNumCustomers, averageCookiesSold) {
 Store.prototype.getHourlyCookiesSold = getHourlyCookiesSold;
 Store.prototype.renderTable = renderTable;
 
-//==========================Event Listener======================//
+//=======================Event Listener======================//
 
 var newStoreEntry = document.getElementById('createEntry');
 
@@ -66,7 +66,7 @@ function getCookieSum(cookies) {
 // https://www.w3schools.com/jsref/met_table_deleterow.asp
 var holdMyNumber = 6;
 function deleteRow() {
-  var removeLastTotal = document.getElementById('storeTable').deleteRow(holdMyNumber);
+  document.getElementById('storeTable').deleteRow(holdMyNumber);
   holdMyNumber += 1;
 }
 

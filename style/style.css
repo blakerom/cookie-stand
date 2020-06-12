@@ -108,12 +108,11 @@ article button:hover {
   transform: scale(1.2);
 }
 div {
-  background-color: #C6915D;
+  width: 960px;
+  margin: auto;
 }
-div h2 {
-  color: #BC543B;
-  font-weight: 900;
-  font-size: 5em;
+div h1 {
+  text-align: center;
 }
 ul {
   color: #36342C;
@@ -131,9 +130,35 @@ table td {
   border: 2px solid #A46846;
   padding: 10px;
 }
+fieldset {
+  border: 2px solid #C6915D;
+  padding: 10px;
+}
 form {
   margin: 30px auto 0;
   width: 840px;
+}
+legend {
+  border: 2px solid #C6915D;
+  padding: 2px;
+  margin: 5px;
+  background-color: #C6915D;
+  color: #D0C8C1;
+  font-size: 16px;
+}
+label {
+  float: left;
+  width: 25%;
+  margin-right: 10px;
+  text-align: right;
+  font-weight: 900;
+}
+form input {
+  background-color: #BC543B;
+  padding: 5px;
+  color: #D0C8C1;
+  font-size: 16px;
+  font-weight: 900;
 }
 footer {
   background-color: #BC543B;
