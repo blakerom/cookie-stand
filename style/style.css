@@ -34,7 +34,13 @@ nav ul li a {
   font-size: 30px;
   font-weight: bold;
   text-decoration: none;
-  color: #D0C8C1;
+  color: #C6915D;
+}
+body h1 {
+  font-family: 'Nanum Gothic', sans-serif;
+  color: #36342C;
+  margin: 30px auto;
+  font-size: 4em;
 }
 main {
   width: 960px;
@@ -111,6 +117,23 @@ div h2 {
 }
 ul {
   color: #36342C;
+}
+table {
+  border: 2px solid #A46846;
+  border-collapse: collapse;
+  margin: auto;
+}
+table th {
+  border: 2px solid #A46846;
+  padding: 10px;
+}
+table td {
+  border: 2px solid #A46846;
+  padding: 10px;
+}
+form {
+  margin: 30px auto 0;
+  width: 840px;
 }
 footer {
   background-color: #BC543B;
