@@ -2,6 +2,50 @@
 //=====================Global Variables=====================//
 var hoursOfOperation = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
 var allStoreArray = [];
+
+//===========================Objects=========================//
+
+var seattleStore = new Store('Seattle', 23, 65, 6.3);
+var tokyoStore = new Store('Tokyo', 3, 24, 1.2);
+var dubaiStore = new Store('Dubai', 11, 38, 3.7);
+var parisStore = new Store('Paris', 20, 38, 2.3);
+var limaStore = new Store('Lima', 2, 16, 4.6);
+
+// ====================Constructors==========================//
+
+function Store(name, minNumCustomers, maxNumCustomers, averageCookiesSold) {
+  this.name = name;
+  this.minNumCustomers = minNumCustomers;
+  this.maxNumCustomers = maxNumCustomers;
+  this.averageCookiesSold = averageCookiesSold;
+  this.cookiesSold = [];
+  allStoreArray.push(this);
+}
+
+Store.prototype.getHourlyCookiesSold = getHourlyCookiesSold;
+Store.prototype.renderTable = renderTable;
+
+//=======================Event Listener======================//
+
+var newStoreEntry = document.getElementById('createEntry');
+
+newStoreEntry.addEventListener('submit', createNewStoreEntry);
+  
+function createNewStoreEntry(newStoreEvent){
+  newStoreEvent.preventDefault();
+
+  var name = newStoreEvent.target.storeName.value;
+  var minCustomer = newStoreEvent.target.minCust.value;
+  var maxCustomer = newStoreEvent.target.maxCust.value;
+  var avgCustomer = newStoreEvent.target.avgCust.value;
+
+  // console.log(name, minCustomer, maxCustomer, avgCustomer);
+  var createNewStore = new Store(name, minCustomer, maxCustomer, avgCustomer);
+  createNewStore.renderTable();
+  deleteRow();
+  totalCookiesPerHour();
+}
+
 //======================Functions===========================//
 
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -10,7 +54,6 @@ function getRandomCustomerCount(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-// console.log(Math.round(getRandomCustomerCount(23,65)));
 
 function getCookieSum(cookies) {
   var sum = 0;
@@ -18,8 +61,13 @@ function getCookieSum(cookies) {
   {
     sum+=cookies[g];
   }
-  // console.log('sum',sum);
   return sum;
+}
+// https://www.w3schools.com/jsref/met_table_deleterow.asp
+var holdMyNumber = 6;
+function deleteRow() {
+  document.getElementById('storeTable').deleteRow(holdMyNumber);
+  holdMyNumber += 1;
 }
 
 function getHourlyCookiesSold() {
@@ -31,47 +79,14 @@ function getHourlyCookiesSold() {
     var totalHourlySales = Math.round(randomNumbers * this.averageCookiesSold);
     // console.log('ghcsTotal :', totalHourlySales);
     this.cookiesSold.push(totalHourlySales);//hourly cookie total sales per city pushed to array named cookiesSold
-    
-    // tempSum += totalHourlySales;
-    // console.log('sum',tempSum);
-    // hourlyArray[i]+=this.cookiesSold[i];
-    // hourlyArray[i] += totalHourlySales;
-    // hourlyArray[i] += this.cookiesSold[i];
-    // for (var j = 0; j < this.cookiesSold.length; j++) {
-    //   hourlyArray[j] += this.cookiesSold[j]; 
-    //   // console.log('hourlytotals',hourlyTotals);
-      
-    //   // console.log('hourlyarray',totalHourlySales);
-    // }
-    // return hourlyArray;
-    // calculateArray(totalHourlySales);
   }
-  // console.log('this cookie sold', this.cookiesSold);
-  // return hourlyArray;
-  // hourlyArray[i]+=this.cookiesSold[i];
-  
 }
-// console.log('look here',hourlyArray);
-function dailyTotalSales() {
-  var totalCookies = getCookieSum(this.cookiesSold);
-  var totalList = document.getElementById('storeTable');
-  var cookieListTotal = document.createElement('li');
-  cookieListTotal.textContent = ('Total Cookies Sold: ' + totalCookies);
-  totalList.appendChild(cookieListTotal);
-  console.log('dts log: ', totalCookies);
-}
-// dailyTotalSales();
-
-  //function to take in each array slot and hold to calculate hourly
-  //takes in store hours [2,3,4,5,6,7,8]
-  //adds to existing position array[i] += array[i] hourlyArray[0]+=cookiesSold[0];
-// function calculateArray(hourlySales) {
-//   var tempArray = [];
-//   for (var i = 0; i < hoursOfOperation.length; i++) {
-//     hourlyArray.push(hourlySales);
-//     console.log('i',hourlySales);
-//   }
-//   console.log('iarray',hourlyArray);
+// function dailyTotalSales() {
+//   var totalCookies = getCookieSum(this.cookiesSold);
+//   var totalList = document.getElementById('storeTable');
+//   var cookieListTotal = document.createElement('li');
+//   cookieListTotal.textContent = ('Total Cookies Sold: ' + totalCookies);
+//   totalList.appendChild(cookieListTotal);
 // }
 
 function renderToPage() {
@@ -108,6 +123,7 @@ function renderHeading() {
 
 function renderTable() {
   this.getHourlyCookiesSold();
+  var totalCookies = getCookieSum(this.cookiesSold);
   var table = document.getElementById('storeTable');
   var tableRow = document.createElement('tr');
   var tableCell = document.createElement('td');
@@ -118,10 +134,14 @@ function renderTable() {
     tableCell.textContent = this.cookiesSold[i];
     tableRow.appendChild(tableCell);
   }
+  var tableCell = document.createElement('th');
+  tableCell.textContent = totalCookies;
+  tableRow.appendChild(tableCell);
   table.appendChild(tableRow);
 }
 
 function totalCookiesPerHour() {
+  var tempCookies = 0;
   var totalCookies = 0;
   var table = document.getElementById('storeTable');
   var footerRow = document.createElement('tr');
@@ -132,59 +152,18 @@ function totalCookiesPerHour() {
     var totalCookies = 0;
     for( var j = 0; j < allStoreArray.length; j++) {
       totalCookies += allStoreArray[j].cookiesSold[i];
+      tempCookies += allStoreArray[j].cookiesSold[i];
     }
     var footerCell = document.createElement('td');
     footerCell.textContent = totalCookies;
     footerRow.appendChild(footerCell);
   }
+  console.log('total cookies: ',tempCookies);
   footerCell = document.createElement('td');
-  footerCell.textContent = totalCookies;
+  footerCell.textContent = tempCookies; //final number
   footerRow.appendChild(footerCell);
   table.appendChild(footerRow);
 }
-
-// ====================Constructors==========================//
-
-// function makeStore(name, minNumCustomers, maxNumCustomers, averageCookiesSold, headingId, listId){
-//   var newStore = {
-//     name : name,
-//     minNumCustomers : minNumCustomers,
-//     maxNumCustomers : maxNumCustomers,
-//     averageCookiesSold : averageCookiesSold,
-//     cookiesSold : cookiesSoldArray,
-//     headingId : headingId,
-//     listId : listId,
-//     getHourlyCookiesSold : getHourlyCookiesSold,
-//     getCookieSum : getCookieSum,
-//     renderToPage : renderToPage,
-//     dailyTotalSales : dailyTotalSales
-//   }
-//   return newStore;
-// }
-
-function Store(name, minNumCustomers, maxNumCustomers, averageCookiesSold) {
-  this.name = name;
-  this.minNumCustomers = minNumCustomers;
-  this.maxNumCustomers = maxNumCustomers;
-  this.averageCookiesSold = averageCookiesSold;
-  this.cookiesSold = [];
-  allStoreArray.push(this);
-}
-// console.log(allStoreArray);
-
-Store.prototype.getHourlyCookiesSold = getHourlyCookiesSold;
-// Store.prototype.calculateArray = calculateArray;
-// Store.prototype.renderToPage = renderToPage;
-Store.prototype.dailyTotalSales = dailyTotalSales;
-Store.prototype.renderTable = renderTable;
-// console.log('array', hourlyArray);
-//===========================Objects=========================//
-
-var seattleStore = new Store('Seattle', 23, 65, 6.3);
-var tokyoStore = new Store('Tokyo', 3, 24, 1.2);
-var dubaiStore = new Store('Dubai', 11, 38, 3.7);
-var parisStore = new Store('Paris', 20, 38, 2.3);
-var limaStore = new Store('Lima', 2, 16, 4.6);
 
 // //================Invokes===========================//
 
